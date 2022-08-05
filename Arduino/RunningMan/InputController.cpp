@@ -14,6 +14,6 @@ uint8_t InputController::getInput() {
 //	if (y_move > DOWN_THRESHOLD) { value = value | B00000100; }	// down
 	if (digitalRead(BUTTON_A_PIN) == LOW) { value = value | B00000010; }	// a?
 	if (digitalRead(BUTTON_B_PIN) == LOW) { value = value | B00000001; }	// b?
+  delay(80);
 	return value;
 }
-

@@ -59,7 +59,8 @@ int gameHighScore = 0;
 #define BUTTON_A 5
 #define BUTTON_B 6
 InputController inputController;
-bool up, down, left, right, aBut, bBut;
+// bool up, down, left, right;
+bool aBut, bBut;
 
 // Menu
 #define MENU_START 1
@@ -83,7 +84,7 @@ PROGMEM const char* const stringTable[] = {
 #define CHAR_HEIGHT 24
 #define CHAR_POS_X 20
 #define CHAR_POS_Y 38
-#define CHAR_COLLISION_MARGIN 3
+#define CHAR_COLLISION_MARGIN 7
 
 // Character status
 #define CHAR_RUN 1
@@ -187,7 +188,7 @@ void setup() {
 	// display startup animation
 	for(int i=-8; i<28; i=i+2) {
 		display.clearDisplay();
-		display.drawBitmap(46,i, arduino, 32,8,1);
+		display.drawBitmap(46,i, arduino, 32,9,1); // changed from 8 to 9
 		display.display();
 	}
 	delay(2000);
@@ -205,10 +206,10 @@ void setup() {
 
 void loop() {
 	uint8_t input = inputController.getInput();  // Get input status
-	if (input & (1<<5)) left = true;
-	if (input & (1<<4)) up = true;
-	if (input & (1<<3)) right = true;
-	if (input & (1<<2)) down = true;
+	// if (input & (1<<5)) left = true;
+	// if (input & (1<<4)) up = true;
+	// if (input & (1<<3)) right = true;
+	// if (input & (1<<2)) down = true;
 	if (input & (1<<1)) aBut = true;	// a button
 	if (input & (1<<0)) bBut = true;	// b button
 
@@ -301,10 +302,10 @@ void loop() {
 			display.clearDisplay();
 			display.drawBitmap(0,0,nightrun,128,64,1);
 
-			display.setCursor(18,5);
+			display.setCursor(5,5);
 			display.print(F("Presented by"));
-			display.setCursor(18,20);
-			display.print(F("HardCopyWorld.com"));
+			display.setCursor(5,20);
+      display.print(F("HBwithHS.210819"));
 
 			display.display();  // Make sure final frame is drawn
 			stopUntilUserInput();    // Wait until user touch the button
@@ -320,7 +321,7 @@ void loop() {
 //  Game engine
 
 void checkInput() {
-	if(up || aBut) {
+	if(aBut) {
 		if(charStatus == CHAR_RUN) {
 			charStatus = CHAR_JUMP;
 			charJumpIndex = 0;
@@ -593,10 +594,10 @@ int getOffset(int s) {
 }
 
 void initUserInput() {
-	left = false;
-	up = false;
-	right = false;
-	down = false;
+	// left = false;
+	// up = false;
+	// right = false;
+	// down = false;
 	aBut = false;	// a button
 	bBut = false;	// b button
 }
